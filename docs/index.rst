@@ -3,6 +3,8 @@ I2C Component
 
 .. |COMPONENT| replace:: i2c
 
+.. |ESP_IDF_VERSION| replace:: 5.3
+   
 .. |VERSION| replace:: 1.0.0
 
 .. include:: ../../../installation.rst
