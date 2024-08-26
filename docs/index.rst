@@ -22,6 +22,14 @@ Features
 
 I2C target is not implemented yet.
 
+Thread safety
+-------------
+
+Class method thread safety is implemented by having the :cpp:class:`PL::Lockable` as a base class and creating the class object lock guard at the beginning of the methods.
+
+::cpp:func:`PL::I2CController::Initialize`, ::cpp:func:`PL::I2CController::Read` and :cpp:func:`PL::I2CController::Write` lock both
+the :cpp:class:`PL::I2CController` and the :cpp:class:`PL::I2C` objects for the duration of the method. 
+
 Examples
 --------
 | `I2C controller <https://components.espressif.com/components/plasmapper/pl_i2c/versions/1.0.0/examples/i2c_controller>`_

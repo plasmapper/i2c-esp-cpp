@@ -14,7 +14,7 @@ class I2C : public Lockable {
   friend class I2CTarget;
 
 public:
-  /// @brief Create an I2C
+  /// @brief Creates an I2C
   /// @param port port number
   /// @param sdaPin SDA pin
   /// @param sclPin SCL pin

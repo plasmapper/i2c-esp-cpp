@@ -13,7 +13,7 @@ public:
   /// @brief Default operation timeout in ms
   static const int defaultTimeout = 1;
 
-  /// @brief Create an I2C controller
+  /// @brief Creates an I2C controller
   /// @param i2c I2C interface
   /// @param targetAddress target address
   /// @param sclFrequency SCL frequency in Hz
@@ -25,30 +25,30 @@ public:
   esp_err_t Lock(TickType_t timeout = portMAX_DELAY) override;
   esp_err_t Unlock() override;
 
-  /// @brief Initialize the controller
+  /// @brief Initializes the controller
   /// @return error code
   esp_err_t Initialize();
 
-  /// @brief Read the data from the I2C target
+  /// @brief Reads the data from the I2C target
   /// @param dest destination
   /// @param size number of bytes to read
   /// @return error code
   esp_err_t Read(void* dest, size_t size);
 
-  /// @brief Write the data to the I2C target
+  /// @brief Writes the data to the I2C target
   /// @param src source
   /// @param size number of bytes to write
   /// @return error code
   esp_err_t Write(const void* src, size_t size);
 
-  /// @brief Get the operation timeout 
+  /// @brief Gets the operation timeout 
   /// @return timeout in ms
   int GetTimeout();
 
-  /// @brief Set the operation timeout 
+  /// @brief Sets the operation timeout 
   /// @param timeout timeout in ms
   /// @return error code
-  esp_err_t SetTimeout (int timeout);
+  esp_err_t SetTimeout(int timeout);
 
 private:
   Mutex mutex;

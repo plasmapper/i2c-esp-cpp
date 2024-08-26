@@ -24,19 +24,19 @@ I2CController::~I2CController() {
 //==============================================================================
 
 esp_err_t I2CController::Lock(TickType_t timeout) {
-  esp_err_t error = mutex.Lock (timeout);
+  esp_err_t error = mutex.Lock(timeout);
   if (error == ESP_OK)
     return ESP_OK;
   if (error == ESP_ERR_TIMEOUT && timeout == 0)
     return ESP_ERR_TIMEOUT;
-  ESP_RETURN_ON_ERROR (error, TAG, "mutex lock failed");
+  ESP_RETURN_ON_ERROR(error, TAG, "mutex lock failed");
   return ESP_OK;
 }
 
 //==============================================================================
 
 esp_err_t I2CController::Unlock() {
-  ESP_RETURN_ON_ERROR (mutex.Unlock(), TAG, "mutex unlock failed");
+  ESP_RETURN_ON_ERROR(mutex.Unlock(), TAG, "mutex unlock failed");
   return ESP_OK;
 }
 
@@ -54,7 +54,7 @@ esp_err_t I2CController::Initialize() {
       controllerBusConfig.clk_source = I2C_CLK_SRC_DEFAULT;
       controllerBusConfig.glitch_ignore_cnt = 7;
       controllerBusConfig.flags.enable_internal_pullup = i2c->enableInternalPullUp;
-      ESP_RETURN_ON_ERROR (i2c_new_master_bus (&controllerBusConfig, &i2c->controllerBusHandle), TAG, "initialize I2C controller bus failed");
+      ESP_RETURN_ON_ERROR(i2c_new_master_bus(&controllerBusConfig, &i2c->controllerBusHandle), TAG, "initialize I2C controller bus failed");
     }
     busHandle = i2c->controllerBusHandle;
   }
@@ -67,7 +67,7 @@ esp_err_t I2CController::Initialize() {
       deviceConfig.dev_addr_length = I2C_ADDR_BIT_LEN_7;
       deviceConfig.device_address = targetAddress;
       deviceConfig.scl_speed_hz = sclFrequency;
-      ESP_RETURN_ON_ERROR (i2c_master_bus_add_device(busHandle, &deviceConfig, &deviceHandle), TAG, "initialize I2C controller device failed");
+      ESP_RETURN_ON_ERROR(i2c_master_bus_add_device(busHandle, &deviceConfig, &deviceHandle), TAG, "initialize I2C controller device failed");
     }
   }
 
@@ -83,12 +83,12 @@ esp_err_t I2CController::Read(void* dest, size_t size) {
     LockGuard lg(*this);
     timeout = this->timeout;
     deviceHandle = this->deviceHandle;
-    ESP_RETURN_ON_FALSE (deviceHandle, ESP_ERR_INVALID_STATE, TAG, "I2C controller is not initialized");
+    ESP_RETURN_ON_FALSE(deviceHandle, ESP_ERR_INVALID_STATE, TAG, "I2C controller is not initialized");
   }
   
   {
     LockGuard lg(*i2c);
-    ESP_RETURN_ON_ERROR (i2c_master_receive(deviceHandle, (uint8_t*)dest, size, timeout), TAG, "I2C transmit failed");
+    ESP_RETURN_ON_ERROR(i2c_master_receive(deviceHandle, (uint8_t*)dest, size, timeout), TAG, "I2C transmit failed");
     return ESP_OK;
   }
 }
@@ -102,12 +102,12 @@ esp_err_t I2CController::Write(const void* src, size_t size) {
     LockGuard lg(*this);
     timeout = this->timeout;
     deviceHandle = this->deviceHandle;
-    ESP_RETURN_ON_FALSE (deviceHandle, ESP_ERR_INVALID_STATE, TAG, "I2C controller is not initialized");
+    ESP_RETURN_ON_FALSE(deviceHandle, ESP_ERR_INVALID_STATE, TAG, "I2C controller is not initialized");
   }
   
   {
     LockGuard lg(*i2c);
-    ESP_RETURN_ON_ERROR (i2c_master_transmit(deviceHandle, (const uint8_t*)src, size, timeout), TAG, "I2C transmit failed");
+    ESP_RETURN_ON_ERROR(i2c_master_transmit(deviceHandle, (const uint8_t*)src, size, timeout), TAG, "I2C transmit failed");
     return ESP_OK;
   }
 }
@@ -115,14 +115,14 @@ esp_err_t I2CController::Write(const void* src, size_t size) {
 //==============================================================================
 
 int I2CController::GetTimeout() {
-  LockGuard lg (*this);
+  LockGuard lg(*this);
   return timeout;
 }
 
 //==============================================================================
 
-esp_err_t I2CController::SetTimeout (int timeout) {
-  LockGuard lg (*this);
+esp_err_t I2CController::SetTimeout(int timeout) {
+  LockGuard lg(*this);
   this->timeout = timeout;
   return ESP_OK;
 }
