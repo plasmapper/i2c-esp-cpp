@@ -27,7 +27,7 @@ Thread safety
 
 Class method thread safety is implemented by having the :cpp:class:`PL::Lockable` as a base class and creating the class object lock guard at the beginning of the methods.
 
-::cpp:func:`PL::I2CController::Initialize`, ::cpp:func:`PL::I2CController::Read` and :cpp:func:`PL::I2CController::Write` lock both
+:cpp:func:`PL::I2CController::Initialize`, ::cpp:func:`PL::I2CController::Read` and :cpp:func:`PL::I2CController::Write` lock both
 the :cpp:class:`PL::I2CController` and the :cpp:class:`PL::I2C` objects for the duration of the method. 
 
 Examples
