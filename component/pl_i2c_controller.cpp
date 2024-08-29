@@ -46,14 +46,7 @@ esp_err_t I2CController::Initialize() {
   LockGuard lg(*this, *i2c);
 
   if (!i2c->controllerBusHandle) {
-    i2c_master_bus_config_t controllerBusConfig = {};
-    controllerBusConfig.i2c_port = i2c->port;
-    controllerBusConfig.sda_io_num = i2c->sdaPin;
-    controllerBusConfig.scl_io_num = i2c->sclPin;
-    controllerBusConfig.clk_source = I2C_CLK_SRC_DEFAULT;
-    controllerBusConfig.glitch_ignore_cnt = 7;
-    controllerBusConfig.flags.enable_internal_pullup = i2c->enableInternalPullUp;
-    ESP_RETURN_ON_ERROR(i2c_new_master_bus(&controllerBusConfig, &i2c->controllerBusHandle), TAG, "initialize I2C controller bus failed");
+    ESP_RETURN_ON_ERROR(i2c->Initialize(), TAG, "I2C initialize failed");
   }
 
   if (!deviceHandle) {

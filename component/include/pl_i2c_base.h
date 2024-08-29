@@ -27,6 +27,10 @@ public:
   esp_err_t Lock(TickType_t timeout = portMAX_DELAY) override;
   esp_err_t Unlock() override;
 
+  /// @brief Initializes the I2C
+  /// @return error code
+  esp_err_t Initialize();
+
 private:
   Mutex mutex;
   i2c_master_bus_handle_t controllerBusHandle = NULL;

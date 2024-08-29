@@ -42,4 +42,21 @@ esp_err_t I2C::Unlock() {
 
 //==============================================================================
 
+esp_err_t I2C::Initialize() {
+  LockGuard lg(*this);
+  if (initialized)
+    return ESP_OK;
+  i2c_master_bus_config_t controllerBusConfig = {};
+  controllerBusConfig.i2c_port = port;
+  controllerBusConfig.sda_io_num = sdaPin;
+  controllerBusConfig.scl_io_num = sclPin;
+  controllerBusConfig.clk_source = I2C_CLK_SRC_DEFAULT;
+  controllerBusConfig.glitch_ignore_cnt = 7;
+  controllerBusConfig.flags.enable_internal_pullup = enableInternalPullUp;
+  ESP_RETURN_ON_ERROR(i2c_new_master_bus(&controllerBusConfig, &controllerBusHandle), TAG, "I2C new master bus failed");
+  return ESP_OK;
+}
+
+//==============================================================================
+
 }
