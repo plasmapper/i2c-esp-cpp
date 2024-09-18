@@ -44,7 +44,7 @@ esp_err_t I2C::Unlock() {
 
 esp_err_t I2C::Initialize() {
   LockGuard lg(*this);
-  if (initialized)
+  if (controllerBusHandle)
     return ESP_OK;
   i2c_master_bus_config_t controllerBusConfig = {};
   controllerBusConfig.i2c_port = port;
