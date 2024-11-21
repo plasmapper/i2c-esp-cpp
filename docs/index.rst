@@ -5,7 +5,7 @@ I2C Component
 
 .. |ESP_IDF_VERSION| replace:: 5.3
    
-.. |VERSION| replace:: 1.0.3
+.. |VERSION| replace:: 1.1.0
 
 .. include:: ../../../installation.rst
 
@@ -33,7 +33,7 @@ the :cpp:class:`PL::I2CController` and the :cpp:class:`PL::I2C` objects for the 
 
 Examples
 --------
-| `I2C controller <https://components.espressif.com/components/plasmapper/pl_i2c/versions/1.0.3/examples/i2c_controller>`_
+| `I2C controller <https://components.espressif.com/components/plasmapper/pl_i2c/versions/1.1.0/examples/i2c_controller>`_
 
 API reference
 -------------

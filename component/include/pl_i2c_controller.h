@@ -10,8 +10,8 @@ namespace PL {
 /// @brief I2C controller class
 class I2CController : public Lockable {
 public:
-  /// @brief Default operation timeout in ms
-  static const int defaultTimeout = 1;
+  /// @brief Default operation timeout in FreeRTOS ticks
+  static const TickType_t defaultTimeout = 2;
 
   /// @brief Creates an I2C controller
   /// @param i2c I2C interface
@@ -42,13 +42,13 @@ public:
   esp_err_t Write(const void* src, size_t size);
 
   /// @brief Gets the operation timeout 
-  /// @return timeout in ms
-  int GetTimeout();
+  /// @return timeout in FreeRTOS ticks
+  TickType_t GetTimeout();
 
   /// @brief Sets the operation timeout 
-  /// @param timeout timeout in ms
+  /// @param timeout timeout in FreeRTOS ticks
   /// @return error code
-  esp_err_t SetTimeout(int timeout);
+  esp_err_t SetTimeout(TickType_t timeout);
 
 private:
   Mutex mutex;
@@ -56,7 +56,7 @@ private:
   uint8_t targetAddress;
   uint32_t sclFrequency;
   i2c_master_dev_handle_t deviceHandle = NULL;
-  int timeout = defaultTimeout;
+  TickType_t timeout = defaultTimeout;
 };
 
 //==============================================================================

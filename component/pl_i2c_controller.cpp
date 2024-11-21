@@ -65,7 +65,7 @@ esp_err_t I2CController::Initialize() {
 esp_err_t I2CController::Read(void* dest, size_t size) {
   LockGuard lg(*this, *i2c);
   ESP_RETURN_ON_FALSE(deviceHandle, ESP_ERR_INVALID_STATE, TAG, "I2C controller is not initialized");
-  ESP_RETURN_ON_ERROR(i2c_master_receive(deviceHandle, (uint8_t*)dest, size, timeout), TAG, "I2C transmit failed");
+  ESP_RETURN_ON_ERROR(i2c_master_receive(deviceHandle, (uint8_t*)dest, size, timeout * portTICK_PERIOD_MS), TAG, "I2C receive failed");
   return ESP_OK;
 }
 
@@ -74,20 +74,20 @@ esp_err_t I2CController::Read(void* dest, size_t size) {
 esp_err_t I2CController::Write(const void* src, size_t size) {
   LockGuard lg(*this, *i2c);
   ESP_RETURN_ON_FALSE(deviceHandle, ESP_ERR_INVALID_STATE, TAG, "I2C controller is not initialized");
-  ESP_RETURN_ON_ERROR(i2c_master_transmit(deviceHandle, (const uint8_t*)src, size, timeout), TAG, "I2C transmit failed");
+  ESP_RETURN_ON_ERROR(i2c_master_transmit(deviceHandle, (const uint8_t*)src, size, timeout * portTICK_PERIOD_MS), TAG, "I2C transmit failed");
   return ESP_OK;
 }
 
 //==============================================================================
 
-int I2CController::GetTimeout() {
+TickType_t I2CController::GetTimeout() {
   LockGuard lg(*this);
   return timeout;
 }
 
 //==============================================================================
 
-esp_err_t I2CController::SetTimeout(int timeout) {
+esp_err_t I2CController::SetTimeout(TickType_t timeout) {
   LockGuard lg(*this);
   this->timeout = timeout;
   return ESP_OK;
