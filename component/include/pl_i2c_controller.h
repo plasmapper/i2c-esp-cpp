@@ -41,6 +41,14 @@ public:
   /// @return error code
   esp_err_t Write(const void* src, size_t size);
 
+  /// @brief Writes the data to the I2C target and reads the data from the I2C target in a single transaction
+  /// @param src write data source
+  /// @param size number of bytes to write
+  /// @param src read data destination
+  /// @param size number of bytes to read
+  /// @return error code
+  esp_err_t WriteAndRead(const void* src, size_t srcSize, void* dest, size_t destSize);
+
   /// @brief Gets the operation timeout 
   /// @return timeout in FreeRTOS ticks
   TickType_t GetTimeout();

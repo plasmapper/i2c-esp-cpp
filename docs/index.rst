@@ -5,7 +5,7 @@ I2C Component
 
 .. |ESP_IDF_VERSION| replace:: 5.3
    
-.. |VERSION| replace:: 1.1.0
+.. |VERSION| replace:: 1.2.0
 
 .. include:: ../../../installation.rst
 
@@ -19,6 +19,7 @@ Features
 2. :cpp:class:`PL::I2CController` - an I2C controller class that is used for communication with a single I2C target.
    :cpp:func:`PL::I2CController::Initialize` initializes the I2C interface and the I2C controller.
    :cpp:func:`PL::I2CController::Read` performs an I2C read operation. :cpp:func:`PL::I2CController::Write` performs an I2C write operation.
+   :cpp:func:`PL::I2CController::WriteAndRead` performs I2C write and read operations in a single transaction.
    Operation timeout can be get and set using :cpp:func:`PL::I2CController::GetTimeout` and :cpp:func:`PL::I2CController::SetTimeout`.
 
 I2C target is not implemented yet.
@@ -33,7 +34,7 @@ the :cpp:class:`PL::I2CController` and the :cpp:class:`PL::I2C` objects for the 
 
 Examples
 --------
-| `I2C controller <https://components.espressif.com/components/plasmapper/pl_i2c/versions/1.1.0/examples/i2c_controller>`_
+| `I2C controller <https://components.espressif.com/components/plasmapper/pl_i2c/versions/1.2.0/examples/i2c_controller>`_
 
 API reference
 -------------

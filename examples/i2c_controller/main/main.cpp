@@ -29,4 +29,13 @@ extern "C" void app_main(void) {
   for (int i = 0; i < sizeof(readData) / sizeof(readData[0]); i++)
     printf(" %d", readData[i]);
   printf("\n");
+
+  printf("Writing and reading data:\nWrite:");
+  for (int i = 0; i < sizeof(writeData) / sizeof(writeData[0]); i++)
+    printf(" %d", writeData[i]);
+  printf("\nRead:");
+  controller.WriteAndRead(writeData, sizeof(writeData), readData, sizeof(readData));
+  for (int i = 0; i < sizeof(readData) / sizeof(readData[0]); i++)
+    printf(" %d", readData[i]);
+  printf("\n");
 }

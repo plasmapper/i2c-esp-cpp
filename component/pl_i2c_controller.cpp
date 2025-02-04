@@ -80,6 +80,15 @@ esp_err_t I2CController::Write(const void* src, size_t size) {
 
 //==============================================================================
 
+esp_err_t I2CController::WriteAndRead(const void* src, size_t srcSize, void* dest, size_t destSize) {
+  LockGuard lg(*this, *i2c);
+  ESP_RETURN_ON_FALSE(deviceHandle, ESP_ERR_INVALID_STATE, TAG, "I2C controller is not initialized");
+  ESP_RETURN_ON_ERROR(i2c_master_transmit_receive(deviceHandle, (const uint8_t*)src, srcSize, (uint8_t*)dest, destSize, timeout * portTICK_PERIOD_MS), TAG, "I2C transmit and receive failed");
+  return ESP_OK;
+}
+
+//==============================================================================
+
 TickType_t I2CController::GetTimeout() {
   LockGuard lg(*this);
   return timeout;
